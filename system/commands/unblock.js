@@ -1,0 +1,14 @@
+module.exports = {
+    commands: ["unblock"],
+    cooldown: 13,
+    isSewa: true,
+    isOwner: true,
+    callback: async ({ m }) => {
+        const listBlock = await sock.fetchBlocklist()
+        if (!m.input) return m.reply("Input nomer")
+        if (m.input.startsWith("08")) return m.reply("Gunakan code negara kak")
+        if (!listBlock.includes(m.input)) return m.reply("Sudah di unblock")
+        sock.updateBlockStatus(m.input, "unblock")
+        await m.reply(`Success unblock @${m.input.split("@")[0]}`)
+    }
+}
